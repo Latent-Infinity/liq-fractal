@@ -35,3 +35,11 @@ def test_ghe_validates_order_and_lag_range() -> None:
         estimate_ghe(values, q=0.0)
     with pytest.raises(ValueError, match="max_lag"):
         estimate_ghe(values, max_lag=32)
+
+
+def test_dfa_supports_the_frozen_thirty_observation_window() -> None:
+    values = [float(index % 7) / 10.0 for index in range(30)]
+
+    estimate = estimate_dfa(values)
+
+    assert math.isfinite(estimate)

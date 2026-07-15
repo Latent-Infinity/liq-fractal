@@ -39,7 +39,7 @@ def estimate_dfa(values: Sequence[float]) -> float:
 
     series = _validated_series(values)
     integrated = np.cumsum(series - np.mean(series))
-    scales = _dyadic_scales(series.size)
+    scales = _dfa_scales(series.size)
     fluctuations: list[float] = []
     used_scales: list[int] = []
     for scale in scales:
@@ -102,6 +102,18 @@ def _dyadic_scales(observation_count: int) -> tuple[int, ...]:
     if len(scales) < 2:
         raise ValueError("descriptor estimator requires at least two usable scales")
     return tuple(scales)
+
+
+def _dfa_scales(observation_count: int) -> tuple[int, ...]:
+    """Return stable DFA scales, including a second scale for a 30-point window."""
+
+    maximum = observation_count // 4
+    if maximum >= 8:
+        return _dyadic_scales(observation_count)
+    scales = (4, maximum)
+    if maximum <= 4:
+        raise ValueError("DFA requires at least two usable scales")
+    return scales
 
 
 def _segments(
