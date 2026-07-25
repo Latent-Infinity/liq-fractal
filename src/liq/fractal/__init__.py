@@ -19,7 +19,15 @@ from liq.fractal.contracts import (
     InputDomain,
     KernelBackend,
 )
-from liq.fractal.reference import estimate_dfa, estimate_ghe, estimate_hurst_rs
+from liq.fractal.reference import (
+    estimate_dfa,
+    estimate_ghe,
+    estimate_hurst_rs,
+    estimate_mfdfa_width,
+    estimate_mfdfa_width_surrogate_adjusted,
+    estimate_wavelet_energy_ratio,
+    estimate_wavelet_entropy,
+)
 
 __all__ = [
     "CodecParams",
@@ -37,6 +45,10 @@ __all__ = [
     "estimate_dfa",
     "estimate_ghe",
     "estimate_hurst_rs",
+    "estimate_mfdfa_width",
+    "estimate_mfdfa_width_surrogate_adjusted",
+    "estimate_wavelet_energy_ratio",
+    "estimate_wavelet_entropy",
     "hill_tail_index",
     "jaccard_turnover",
     "normalized_entropy",
